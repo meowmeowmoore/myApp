@@ -29,7 +29,7 @@ class View {
     //     this.listOfRepositories.append(elementRepository)
     //
     // } При событии добавления выбранного репозитория
-    //
+
 }
 
 class Search {
