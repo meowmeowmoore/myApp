@@ -9,7 +9,7 @@ class View {
 
         //Автоподбор у строки поиска (автокомплит, автозаполнение)
         this.autocompleteWrap = this.createElement('div', "autocomplete-wrap");
-
+        this.searchLine.append(this.autocompleteWrap)
 
         //Список добавленных репозиториев
         this.addRepositoriesList = this.createElement('div', 'wrapper-list-repositories');
@@ -17,7 +17,6 @@ class View {
         this.addRepositoriesList.append(this.listOfRepositories);
 
         this.app.append(this.searchLine);
-        this.app.append(this.autocompleteWrap);
         this.app.append(this.addRepositoriesList);
 
     }
@@ -52,9 +51,8 @@ class Search {
                 let arrayRepositoryName = [];
                 res.items.forEach(repository => {
                     arrayRepositoryName.push(repository.name);
-                    // repository.this.view.createElement("div", "autocomplete-wrap");
-                }/*this.view.createRepository(repository)*/)
-                console.log(arrayRepositoryName)
+                })
+                this.autocomplete(this.view.input, arrayRepositoryName);
             })
 
     }
@@ -62,10 +60,19 @@ class Search {
     //Вынести в отдельный класс??
     autocomplete(input, arr) {
         input.addEventListener('input', () => {
-            let value = input.value;
-            arr.forEach((arrItem, index) => {
+            if (input.value !== '') {
+                arr.forEach((arrItem) => {
+                    if (arrItem.search(input.value) !== -1) {
+                        let listOfSuggestion = this.view.createElement('ul', 'list-of-repositories')
+                        let item = this.view.createElement('li', 'repository')
+                        listOfSuggestion.append(item);
+                        item.innerHTML = arrItem;
+                        this.view.autocompleteWrap.append(listOfSuggestion);
+                    }
+                })
+            } else {
 
-            })
+            }
         })
 
     }
