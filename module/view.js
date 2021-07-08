@@ -9,7 +9,7 @@ export class View {
         this.input = this.createElement('input', 'input-for-search');
         this.searchLine.append(this.input);
 
-        //Автоподбор у строки поиска (автокомплит, автозаполнение)
+        //Автоподбор у строки поиска (автокомплит)
         this.autocompleteWrap = this.createElement('div', "autocomplete-wrap");
         this.listOfSuggestion = this.createElement('ul', 'list-of-repositories');
         this.autocompleteWrap.append(this.listOfSuggestion);
@@ -33,13 +33,19 @@ export class View {
         return element;
     }
 
-    createAutocomplete(repositoryName, counter = 0) {
-        counter++;
-        if (counter <= 5) {
+    createAutocomplete(repositoryName, counter) {
+
+        if (counter < 5) {
+            console.log(counter);
             let repository = this.createElement("li", "repository-name");
             repository.innerHTML = repositoryName;
+            repository.addEventListener('click', () => console.log(repository))
             this.listOfSuggestion.append(repository);
         }
+    }
+
+    clearSuggestRepositories() {
+        this.listOfSuggestion.innerHTML = '';
     }
 }
 

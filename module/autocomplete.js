@@ -26,13 +26,17 @@ export class Autocomplete {
         }
     }
 
-    autocompleteRepositories(arr, inputValue) {
-        arr.forEach(repository => {
+    autocompleteRepositories(arr, inputValue, counter = 0) {
+        if (inputValue === '') {
+            this.view.clearSuggestRepositories();
+        } else {
+            arr.forEach(repository => {
                 if (repository.name.search(inputValue) !== -1) {
-                    this.view.createAutocomplete(repository.name);
+
+                    this.view.createAutocomplete(repository.name, counter++);
                 }
-            }
-        )
+            })
+        }
     }
 
     debounce(fn, debounceTime) {
