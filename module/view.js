@@ -11,9 +11,9 @@ export class View {
 
         //Автоподбор у строки поиска (автокомплит, автозаполнение)
         this.autocompleteWrap = this.createElement('div', "autocomplete-wrap");
-        this.listOfSuggestion = this.createElement('ul', 'list-of-repositories')
+        this.listOfSuggestion = this.createElement('ul', 'list-of-repositories');
         this.autocompleteWrap.append(this.listOfSuggestion);
-        this.searchLine.append(this.autocompleteWrap)
+        this.searchLine.append(this.autocompleteWrap);
 
         //Список добавленных репозиториев
         this.addRepositoriesList = this.createElement('div', 'wrapper-list-repositories');
@@ -31,6 +31,15 @@ export class View {
             element.classList.add(elementClass);
         }
         return element;
+    }
+
+    createAutocomplete(repositoryName, counter = 0) {
+        counter++;
+        if (counter <= 5) {
+            let repository = this.createElement("li", "repository-name");
+            repository.innerHTML = repositoryName;
+            this.listOfSuggestion.append(repository);
+        }
     }
 }
 

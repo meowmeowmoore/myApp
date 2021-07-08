@@ -9,17 +9,30 @@ export class Autocomplete {
     }
 
     searchRepositories() {
+        let inputValue = this.view.input.value;
         if (this.view.input.value) {
             this.api.loadRepositories(this.view.input.value)
-                .then(response => this.updateRepositories(response))
+                .then(response => this.updateSearchRepositories(response, inputValue))
         }
     }
 
-    updateRepositories(response) {
-        if(response.ok) {
+    updateSearchRepositories(response, inputValue) {
+        if (response.ok) {
             response.json()
-                .then(res => console.log(res))
-        };
+                .then(resultOfSearch => {
+                    let arrRepositories = resultOfSearch.items;
+                    this.autocompleteRepositories(arrRepositories, inputValue);
+                })
+        }
+    }
+
+    autocompleteRepositories(arr, inputValue) {
+        arr.forEach(repository => {
+                if (repository.name.search(inputValue) !== -1) {
+                    this.view.createAutocomplete(repository.name);
+                }
+            }
+        )
     }
 
     debounce(fn, debounceTime) {
@@ -31,5 +44,3 @@ export class Autocomplete {
         }
     };
 }
-
-// export default Autocomplete;
