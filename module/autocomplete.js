@@ -10,9 +10,12 @@ export class Autocomplete {
 
     searchRepositories() {
         let inputValue = this.view.input.value;
-        if (this.view.input.value) {
-            this.api.loadRepositories(this.view.input.value)
+
+        if (inputValue !== '') {
+            this.api.loadRepositories(inputValue)
                 .then(response => this.updateSearchRepositories(response, inputValue))
+        } else {
+            this.view.clearSuggestRepositories();
         }
     }
 
@@ -27,16 +30,14 @@ export class Autocomplete {
     }
 
     autocompleteRepositories(arr, inputValue, counter = 0) {
-        if (inputValue === '') {
-            this.view.clearSuggestRepositories();
-        } else {
+            // this.view.clearSuggestRepositories();
+
             arr.forEach(repository => {
                 if (repository.name.search(inputValue) !== -1) {
 
                     this.view.createAutocomplete(repository.name, counter++);
                 }
             })
-        }
     }
 
     debounce(fn, debounceTime) {

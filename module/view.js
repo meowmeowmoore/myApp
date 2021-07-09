@@ -45,7 +45,8 @@ export class View {
     }
 
     clearSuggestRepositories() {
-        this.listOfSuggestion.innerHTML = '';
+        this.listOfSuggestion.querySelectorAll('.repository-name')
+            .forEach(el => el.remove())
     }
 }
 

@@ -6,4 +6,4 @@ import {AddToList} from "./module/add_to_list.js";
 new Autocomplete(new View(new API()), new API());
 
 
-//отработь ошибку 422 (она из-за дебаунса)
+
