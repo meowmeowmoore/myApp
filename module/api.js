@@ -9,4 +9,5 @@ export class API {
     async loadRepositories(searchValue) {
         return await fetch(`${URL}search/repositories?q=${searchValue}`);
     }
+
 }

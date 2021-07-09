@@ -11,17 +11,21 @@ export class View {
 
         //Автоподбор у строки поиска (автокомплит)
         this.autocompleteWrap = this.createElement('div', "autocomplete-wrap");
-        this.listOfSuggestion = this.createElement('ul', 'list-of-repositories');
+        this.listOfSuggestion = thwis.createElement('ul', 'list-of-repositories');
         this.autocompleteWrap.append(this.listOfSuggestion);
         this.searchLine.append(this.autocompleteWrap);
 
         //Список добавленных репозиториев
-        this.addRepositoriesList = this.createElement('div', 'wrapper-list-repositories');
-        this.listOfRepositories = this.createElement('ul', 'list-repositories');
-        this.addRepositoriesList.append(this.listOfRepositories);
+        this.listOfRepositories = this.createElement('div', 'wrapper-list-repositories');
+
+        //Кнопка удаления
+        this.wrapperButtonDelete = this.createElement('div', 'wrapper-button-delete');
+
+        this.listOfRepositories.append(this.wrapperButtonDelete);
+
 
         this.app.append(this.searchLine);
-        this.app.append(this.addRepositoriesList);
+        this.app.append(this.listOfRepositories);
 
     }
 
@@ -33,21 +37,22 @@ export class View {
         return element;
     }
 
-    createAutocomplete(repositoryName, counter) {
+    createAutocomplete(repositoryName, counter, owner, star) {
 
         if (counter < 5) {
-            console.log(counter);
             let repository = this.createElement("li", "repository-name");
             repository.innerHTML = repositoryName;
-            repository.addEventListener('click', () => this.createListOfRepository(repository))
+            repository.addEventListener('click', () => this.createListOfRepository(repository, owner, star))
             this.listOfSuggestion.append(repository);
         }
     }
 
-    createListOfRepository (repository) {
-        this.listOfRepositories.append(repository);
-
-
+    createListOfRepository(repository, owner, star) {
+        let wrapperRep = this.createElement('div', 'wrapper-list-repository');
+        wrapperRep.innerHTML = `<p class="element">Name: ${repository.innerHTML}</p>
+                                <p class="element">Owner: ${owner.login}</p>
+                                <p class="element"> Stars: ${star}</p>`
+        this.listOfRepositories.append(wrapperRep);
 
     }
 

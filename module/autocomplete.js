@@ -34,8 +34,9 @@ export class Autocomplete {
 
         arr.forEach(repository => {
             if (repository.name.search(inputValue) !== -1) {
-
-                this.view.createAutocomplete(repository.name, counter++);
+                let owner = repository.owner;
+                let star = repository.stargazers_count;
+                this.view.createAutocomplete(repository.name, counter++, owner, star);
             }
         })
     }
