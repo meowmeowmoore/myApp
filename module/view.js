@@ -1,6 +1,11 @@
+let ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">\n' +
+    '<path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>\n' +
+    '</svg>'
+
 export class View {
-    constructor(api) {
+    constructor(api, style) {
         this.api = api;
+        this.style = style;
 
         this.app = document.getElementById('app');
 
@@ -11,21 +16,15 @@ export class View {
 
         //Автоподбор у строки поиска (автокомплит)
         this.autocompleteWrap = this.createElement('div', "autocomplete-wrap");
-        this.listOfSuggestion = thwis.createElement('ul', 'list-of-repositories');
-        this.autocompleteWrap.append(this.listOfSuggestion);
+        this.autocompleteList = this.createElement('ul', 'autocomplete-list');
+        this.autocompleteWrap.append(this.autocompleteList);
         this.searchLine.append(this.autocompleteWrap);
 
         //Список добавленных репозиториев
-        this.listOfRepositories = this.createElement('div', 'wrapper-list-repositories');
-
-        //Кнопка удаления
-        this.wrapperButtonDelete = this.createElement('div', 'wrapper-button-delete');
-
-        this.listOfRepositories.append(this.wrapperButtonDelete);
-
+        this.listAdded = this.createElement('div', 'list-added');
 
         this.app.append(this.searchLine);
-        this.app.append(this.listOfRepositories);
+        this.app.append(this.listAdded);
 
     }
 
@@ -40,24 +39,39 @@ export class View {
     createAutocomplete(repositoryName, counter, owner, star) {
 
         if (counter < 5) {
-            let repository = this.createElement("li", "repository-name");
+            let repository = this.createElement("li", "autocomplete-repository");
             repository.innerHTML = repositoryName;
             repository.addEventListener('click', () => this.createListOfRepository(repository, owner, star))
-            this.listOfSuggestion.append(repository);
+            this.autocompleteList.append(repository);
         }
     }
 
     createListOfRepository(repository, owner, star) {
         let wrapperRep = this.createElement('div', 'wrapper-list-repository');
-        wrapperRep.innerHTML = `<p class="element">Name: ${repository.innerHTML}</p>
-                                <p class="element">Owner: ${owner.login}</p>
-                                <p class="element"> Stars: ${star}</p>`
-        this.listOfRepositories.append(wrapperRep);
+        let repositoryInfo = this.createElement('div', 'repository-info');
+        this.style.decoration(wrapperRep);
+        repositoryInfo.innerHTML = `<p class="element">Name: ${repository.innerHTML}</p>
+                                    <p class="element">Owner: ${owner.login}</p>
+                                    <p class="element"> Stars: ${star}</p>`;
+        wrapperRep.append(repositoryInfo);
+        this.createDeleteButton(wrapperRep);
+        this.listAdded.append(wrapperRep);
 
     }
 
+    createDeleteButton(repositoryInfo) {
+        let button = this.createElement('div', 'autocomplete-repository-button');
+        button.innerHTML = ICON;
+        button.addEventListener('click', () => this.deleteElementFromList(repositoryInfo));
+        repositoryInfo.append(button);
+    }
+
+    deleteElementFromList(wrapperRep) {
+        wrapperRep.remove();
+    }
+
     clearSuggestRepositories() {
-        this.listOfSuggestion.querySelectorAll('.repository-name')
+        this.autocompleteList.querySelectorAll('.repository-name')
             .forEach(el => el.remove())
     }
 }
