@@ -39,6 +39,7 @@ export class View {
     createAutocomplete(repositoryName, counter, owner, star) {
 
         if (counter < 5) {
+            console.log(counter)
             let repository = this.createElement("li", "autocomplete-repository");
             repository.innerHTML = repositoryName;
             repository.addEventListener('click', () => this.createListOfRepository(repository, owner, star))
@@ -71,7 +72,7 @@ export class View {
     }
 
     clearSuggestRepositories() {
-        this.autocompleteList.querySelectorAll('.repository-name')
+        this.autocompleteList.querySelectorAll('.autocomplete-repository')
             .forEach(el => el.remove())
     }
 }
