@@ -30,14 +30,14 @@ export class Autocomplete {
     }
 
     autocompleteRepositories(arr, inputValue, counter = 0) {
-            // this.view.clearSuggestRepositories();
+        this.view.clearSuggestRepositories();
 
-            arr.forEach(repository => {
-                if (repository.name.search(inputValue) !== -1) {
+        arr.forEach(repository => {
+            if (repository.name.search(inputValue) !== -1) {
 
-                    this.view.createAutocomplete(repository.name, counter++);
-                }
-            })
+                this.view.createAutocomplete(repository.name, counter++);
+            }
+        })
     }
 
     debounce(fn, debounceTime) {

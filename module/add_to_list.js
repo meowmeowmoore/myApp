@@ -1,5 +1,9 @@
 export class AddToList {
-    constructor () {
+    constructor (view, api) {
+        this.view = view;
+        this.api = api;
 
     }
+
+
 }

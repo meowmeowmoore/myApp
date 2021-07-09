@@ -39,9 +39,16 @@ export class View {
             console.log(counter);
             let repository = this.createElement("li", "repository-name");
             repository.innerHTML = repositoryName;
-            repository.addEventListener('click', () => console.log(repository))
+            repository.addEventListener('click', () => this.createListOfRepository(repository))
             this.listOfSuggestion.append(repository);
         }
+    }
+
+    createListOfRepository (repository) {
+        this.listOfRepositories.append(repository);
+
+
+
     }
 
     clearSuggestRepositories() {
