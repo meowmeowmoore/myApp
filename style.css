@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+}
+
+#app {
+    width: 665px;
+    background-color: #fef0ff;
+    border: 2px solid deeppink;
+}
+
+.wrapper {
+    width: 500px;
+    margin: 20px auto;
+}
+
+.input-for-search, .autocomplete-wrap, .list-added {
+    width: 450px;
+    margin: 0;
+}
+
+.input-for-search {
+    font-size: 48px;
+}
+
+.autocomplete-wrap {
+    height: 230px;
+}
+
+.input-for-search {
+    border: 0;
+}
+
+.autocomplete-list {
+    margin: 0;
+    padding: 0;
+}
+
+.autocomplete-repository {
+    font-size: 30px;
+    list-style-type: none;
+    padding: 5px;
+
+}
+
+.autocomplete-repository:hover{
+    border: 1px solid deeppink;
+    font-weight: bold;
+    background: #fff7f0;
+
+}
+
+.list-added {
+    margin: 20px 0 0;
+}
+
+.wrapper-list-repository {
+    display: flex;
+    padding: 5px;
+    border: 2px solid deeppink;
+}
+
+.repository-info p {
+    font-size: 25px;
+    margin: 0;
+}
+
+.autocomplete-repository-button {
+    margin: auto 20px auto auto;
+}
